@@ -1,0 +1,66 @@
+<h1>Create Product</h1>
+<a routerLink="/">Product list</a>
+<br>
+<!--<form #productCreate='ngForm' (ngSubmit)="createProduct(productCreate)">-->
+<!--  <div>-->
+<!--    <label for="id">Mã sản phẩm</label>-->
+<!--    <input type="text" name="id" id="id"-->
+<!--           required-->
+<!--           #productId='ngModel'-->
+<!--           [(ngModel)]="product.id">-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <div *ngIf="productId.touched && productId.errors?.['required'] ">&ndash;&gt;-->
+<!--  <div *ngIf="productId.touched && productId.invalid">-->
+<!--    <p style="color: red" *ngIf="productId.errors?.['required']">Trường này bắt buộc phải điền</p>-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <label for="name">Tên sản phẩm</label>-->
+<!--    <input type="text" name="name" id="name" [(ngModel)]="product.name">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <label for="price">Giá sản phẩm</label>-->
+<!--    <input type="text" name="price" id="price" [(ngModel)]="product.price">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <label for="description">Mô tả sản phẩm</label>-->
+<!--    <input type="text" name="description" id="description" [(ngModel)]="product.description">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <button>Create</button>-->
+<!--  </div>-->
+
+<!--</form>-->
+<!--Reactive form-->
+
+  <div class="container">
+    <form [formGroup]="productForm" (ngSubmit)="createProductByReactive()" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" formControlName="name">
+        <div *ngIf="nameControl.touched && nameControl.invalid">
+          <p style="color: red" *ngIf="nameControl.errors?.['required']">This field is required to be filled out</p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" class="form-control" id="image" aria-describedby="emailHelp" formControlName="image"
+        (change)="onSelectFile($event)" accept="image/**" multiple>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="text" class="form-control" id="price" formControlName='price'>
+        <div *ngIf="priceControl.touched && priceControl.invalid">
+          <p style="color: red" *ngIf="priceControl.errors?.['required']">This field is required to be filled out</p>
+          <p style="color:red" *ngIf="priceControl.errors?.['pattern']">Only number</p>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" formControlName='description'>
+        <div *ngIf="descriptionControl.touched && descriptionControl.invalid">
+          <p style="color: red" *ngIf="descriptionControl.errors?.['required']">This field is required to be filled out</p>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
